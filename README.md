@@ -1,9 +1,7 @@
 # MLflow Model Deployment Documentation
 
 This document provides a comprehensive guide on deploying MLflow models on a remote server using a DigitalOcean (DO) droplet. The deployment process is described below:
-
 ---
-
 ## Deploy MLflow Model on a DigitalOcean Droplet
 
 ### Overview
@@ -56,7 +54,6 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
     - `secret_access_key`
     - `endpoint_url` (e.g., `https://<bucket-name>.<region>.digitaloceanspaces.com`)
 
-
 - Create a Managed PostgreSQL Database
 
   - Log in to your DigitalOcean account and navigate to the "Databases" section.
@@ -78,11 +75,24 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
   POSTGRES_DB=<your_postgres_db>
   ```
 
+- In `docker-compose.yml`, replace `<model_name>` and `<model_version>` in the command `-m model://<model_name>/<model_version>` with your specific model name and version. For example:
+
+  ```yaml
+  command: >
+    mlflow models serve \
+    -m model://my_model/1 \
+    --host 0.0.0.0 \
+    --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db-postgresql.example.com:5432/${POSTGRES_DB}?sslmode=require \
+    --default-artifact-root s3://my-bucket \
+    --serve-artifacts \
+    --gunicorn-opts "--log-level debug"
+  ``` 
+
 - Run the following command to start the services defined in the `docker-compose.yml` file:
 
-  ```bash
+```bash
   docker compose up
-  ```
+```
 
 #### 3. Test the Remote Endpoint
 
