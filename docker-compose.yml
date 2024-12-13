@@ -1,0 +1,15 @@
+services:
+  tracking-server:
+    build:
+      context: .
+      dockerfile: "${DOCKERFILE:-Dockerfile}"
+    ports:
+      - "5050:5000"
+    command: >
+       mlflow models serve
+      -m models:/<model_name>/<model_version>
+      --host 0.0.0.0
+      --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db-postgresql-sfo3-tony-do-user-17404056-0.j.db.ondigitalocean.com:25060/${POSTGRES_DB}?sslmode=require
+      --default-artifact-root s3://mlflow-bucket-tony
+      --serve-artifacts
+      --gunicorn-opts "--log-level debug"
