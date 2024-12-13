@@ -80,7 +80,7 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
   ```yaml
   command: >
     mlflow models serve \
-    -m model://my_model/1 \
+    --m model://<model_name>/<model_version> \
     --host 0.0.0.0 \
     --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db-postgresql.example.com:5432/${POSTGRES_DB}?sslmode=require \
     --default-artifact-root s3://my-bucket \
