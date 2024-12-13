@@ -16,7 +16,7 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
 - Follow the instructions from previous assignments to set up a new droplet.
 - Configure SSH-based authentication.
 
-#### 1. Initialize Server Environment
+#### 2. Initialize Server Environment
 
 - Use SSH to connect to the server (Ubuntu) and ensure it is configured correctly.
 - Install Docker using the following commands:
@@ -31,7 +31,7 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
   docker --version
   ```
 
-2. **Set Up MLflow Tracking Server**
+#### 3. **Set Up MLflow Tracking Server**
 
 - Transfer necessary dependency files, such as `Dockerfile` and `docker-compose.yml`, to the server. You can use `scp` or clone them from a Git repository.
 
@@ -94,7 +94,7 @@ The deployment involves deploying the MLflow inference server on a DigitalOcean 
   docker compose up
 ```
 
-#### 3. Test the Remote Endpoint
+#### 4. Test the Remote Endpoint
 
 - Use tools like `curl` or Python to send requests to the droplet’s IP address:
   ```bash
